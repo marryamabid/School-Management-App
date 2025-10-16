@@ -1,29 +1,35 @@
 "use client";
+
 import { Calendar, momentLocalizer, View, Views } from "react-big-calendar";
-import moment, { weekdays } from "moment";
-import { calendarEvents } from "@/lib/data";
+import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useState } from "react";
 
 const localizer = momentLocalizer(moment);
-const BigCalender = () => {
+
+const BigCalender = ({
+  data,
+}: {
+  data: { title: string; start: Date; end: Date }[];
+}) => {
   const [view, setView] = useState<View>(Views.WORK_WEEK);
-  const handleViewChange = (selectedView: View) => {
+
+  const handleOnChangeView = (selectedView: View) => {
     setView(selectedView);
   };
+
   return (
     <Calendar
-      views={["work_week", "day"]}
-      onView={handleViewChange}
-      view={view}
       localizer={localizer}
-      events={calendarEvents}
+      events={data}
       startAccessor="start"
       endAccessor="end"
+      views={["work_week", "day"]}
+      view={view}
       style={{ height: "98%" }}
-      defaultDate={new Date(2024, 7, 12)}
-      min={new Date(2024, 7, 1, 8, 0, 0)}
-      max={new Date(2024, 7, 1, 17, 0, 0)}
+      onView={handleOnChangeView}
+      min={new Date(2025, 9, 6, 8, 0)} // start of school day
+      max={new Date(2025, 9, 6, 16, 0)} // end of school day
     />
   );
 };

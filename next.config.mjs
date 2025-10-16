@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "https", // optional but good to specify
         hostname: "images.pexels.com",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
     ],
   },
 };

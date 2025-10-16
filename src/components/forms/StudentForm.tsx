@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputField from "../InputField";
 import Image from "next/image";
-import { teacherSchema, TeacherSchema } from "@/lib/formValidationSchemas";
+import { StudentSchema } from "@/lib/formValidationSchemas";
 import { useFormState } from "react-dom";
 import { createTeacher, updateTeacher } from "@/lib/actions";
 
@@ -12,8 +12,9 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { CldUploadWidget } from "next-cloudinary";
+import { table } from "console";
 
-const TeacherForm = ({
+const StudentForm = ({
   type,
   data,
   setOpen,
@@ -28,8 +29,8 @@ const TeacherForm = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TeacherSchema>({
-    resolver: zodResolver(teacherSchema) as any,
+  } = useForm<StudentSchema>({
+    resolver: zodResolver(studentSchema) as any,
   });
   const [img, setImg] = useState<any>();
   const [state, formAction] = useFormState(
@@ -49,7 +50,7 @@ const TeacherForm = ({
 
   useEffect(() => {
     if (state.success) {
-      toast(`Teacher has been ${type === "create" ? "created" : "updated"}!`);
+      toast(`Student has been ${type === "create" ? "created" : "updated"}!`);
       setOpen(false);
       router.refresh();
     }
@@ -223,4 +224,4 @@ const TeacherForm = ({
   );
 };
 
-export default TeacherForm;
+export default StudentForm;
