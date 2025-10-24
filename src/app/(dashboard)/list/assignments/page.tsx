@@ -2,13 +2,12 @@ import TableSearch from "@/components/TableSeacrch";
 import Pagination from "@/components/Pagination";
 import Image from "next/image";
 import Table from "@/components/Table";
-import Link from "next/link";
-import FormModel from "@/components/FormModel";
 import getUserRole from "@/lib/utils";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import prisma from "@/lib/prisma";
 import { Assignment, Class, Prisma, Subject, Teacher } from "@prisma/client";
-import { de } from "zod/locales";
+
+import FormContainer from "@/components/FormContainer";
 type AssignmentList = Assignment & {
   lesson: { subject: Subject } & { teacher: Teacher } & { class: Class };
 };
@@ -135,13 +134,12 @@ const AssignmentsListPage = async ({
       </td>
       <td>
         <div className="flex items-center gap-2">
-          {role === "admin" ||
-            (role === "teacher" && (
-              <>
-                <FormModel table="assignment" type="update" data={item} />
-                <FormModel table="assignment" type="delete" id={item.id} />
-              </>
-            ))}
+          {(role === "admin" || role === "teacher") && (
+            <>
+              <FormContainer table="assignment" type="update" data={item} />
+              <FormContainer table="assignment" type="delete" id={item.id} />
+            </>
+          )}
         </div>
       </td>
     </tr>
@@ -161,7 +159,9 @@ const AssignmentsListPage = async ({
             <button className="flex w-8 h-8 items-center justify-center bg-lamaYellow rounded-full">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            {role === "admin" && <FormModel table="assignment" type="create" />}
+            {(role === "admin" || role === "teacher") && (
+              <FormContainer table="assignment" type="create" />
+            )}
           </div>
         </div>
       </div>

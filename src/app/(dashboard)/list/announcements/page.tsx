@@ -10,6 +10,7 @@ import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import { Announcement, Class, Prisma } from "@prisma/client";
 import { auth } from "@clerk/nextjs/server";
+import FormContainer from "@/components/FormContainer";
 
 type AnnouncementList = Announcement & { class: Class };
 
@@ -67,7 +68,7 @@ const AnnouncementsListPage = async ({
   const columns = [
     {
       headers: "Title",
-      accessor: "name",
+      accessor: "title",
     },
     {
       headers: "Class",
@@ -103,8 +104,8 @@ const AnnouncementsListPage = async ({
         <div className="flex items-center gap-2">
           {role === "admin" && (
             <>
-              <FormModel table="announcement" data={item} type="update" />
-              <FormModel table="announcement" id={item.id} type="delete" />
+              <FormContainer table="announcement" data={item} type="update" />
+              <FormContainer table="announcement" id={item.id} type="delete" />
             </>
           )}
         </div>
@@ -127,9 +128,7 @@ const AnnouncementsListPage = async ({
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
             {role === "admin" && (
-              <button className="flex w-8 h-8 items-center justify-center bg-lamaYellow rounded-full">
-                <Image src="/plus.png" alt="" width={14} height={14} />
-              </button>
+              <FormContainer table="announcement" type="create" />
             )}
           </div>
         </div>

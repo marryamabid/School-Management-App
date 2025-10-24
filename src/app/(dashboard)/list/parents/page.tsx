@@ -9,6 +9,7 @@ import FormModel from "@/components/FormModel";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import prisma from "@/lib/prisma";
 import { Parent, Prisma, Student } from "@prisma/client";
+import FormContainer from "@/components/FormContainer";
 type ParentList = Parent & { students: Student[] };
 
 const ParentsListPage = async ({
@@ -68,8 +69,8 @@ const ParentsListPage = async ({
         <div className="flex items-center gap-2">
           {role === "admin" && (
             <>
-              <FormModel table="parent" data={item} type="update" />
-              <FormModel table="parent" id={item.id} type="delete" />
+              <FormContainer table="parent" data={item} type="update" />
+              <FormContainer table="parent" id={item.id} type="delete" />
             </>
           )}
         </div>
@@ -118,7 +119,7 @@ const ParentsListPage = async ({
             <button className="flex w-8 h-8 items-center justify-center bg-lamaYellow rounded-full">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            {role === "admin" && <FormModel table="parent" type="create" />}
+            {role === "admin" && <FormContainer table="parent" type="create" />}
           </div>
         </div>
       </div>

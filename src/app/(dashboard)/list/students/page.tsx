@@ -95,7 +95,7 @@ const StudentsListPage = async ({
             // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
             //   <Image src="/delete.png" alt="" width={16} height={16} />
             // </button>
-            <FormContainer table="teacher" id={item.id} type="delete" />
+            <FormContainer table="student" id={item.id} type="delete" />
           )}
         </div>
       </td>

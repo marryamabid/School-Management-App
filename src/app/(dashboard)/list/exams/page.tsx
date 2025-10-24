@@ -3,11 +3,10 @@ import Pagination from "@/components/Pagination";
 import Image from "next/image";
 import Table from "@/components/Table";
 import getUserRole from "@/lib/utils";
-import { examsData, role } from "@/lib/data";
-import FormModel from "@/components/FormModel";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import { Class, Exam, Prisma, Subject, Teacher } from "@prisma/client";
+import FormContainer from "@/components/FormContainer";
 type ExamList = Exam & {
   lesson: { subject: Subject } & { teacher: Teacher } & { class: Class };
 };
@@ -139,13 +138,12 @@ const ExamsListPage = async ({
       </td>
       <td>
         <div className="flex items-center gap-2">
-          {role === "admin" ||
-            (role === "teacher" && (
-              <>
-                <FormModel table="exam" type="update" data={item} />
-                <FormModel table="exam" type="delete" id={item.id} />
-              </>
-            ))}
+          {(role === "admin" || role === "teacher") && (
+            <>
+              <FormContainer table="exam" type="update" data={item} />
+              <FormContainer table="exam" type="delete" id={item.id} />
+            </>
+          )}
         </div>
       </td>
     </tr>
@@ -163,8 +161,9 @@ const ExamsListPage = async ({
             <button className="flex w-8 h-8 items-center justify-center bg-lamaYellow rounded-full">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            {role === "admin" ||
-              (role === "teacher" && <FormModel table="exam" type="create" />)}
+            {(role === "admin" || role === "teacher") && (
+              <FormContainer table="exam" type="create" />
+            )}
           </div>
         </div>
       </div>

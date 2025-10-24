@@ -7,6 +7,7 @@ import FormModel from "@/components/FormModel";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import { Prisma } from "@prisma/client";
+import FormContainer from "@/components/FormContainer";
 type ResultList = {
   id: number;
   title: string;
@@ -110,13 +111,12 @@ const ResultsListPage = async ({
       </td>
       <td>
         <div className="flex items-center gap-2">
-          {role === "admin" ||
-            (role === " teacher" && (
-              <>
-                <FormModel table="result" data={item} type="update" />
-                <FormModel table="result" id={item.id} type="delete" />
-              </>
-            ))}
+          {(role === "admin" || role === "teacher") && (
+            <>
+              <FormContainer table="result" type="update" data={item} />
+              <FormContainer table="result" type="delete" id={item.id} />
+            </>
+          )}
         </div>
       </td>
     </tr>
@@ -209,7 +209,7 @@ const ResultsListPage = async ({
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
             {(role === "admin" || role === "teacher") && (
-              <FormModel table="result" type="create" />
+              <FormContainer table="result" type="create" />
             )}
           </div>
         </div>
