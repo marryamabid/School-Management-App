@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "seed": "prisma db seed",
-    "vercel-build": "prisma generate && prisma migrate deploy && prisma db seed && next build"
+    "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "dependencies": {
     "@clerk/clerk-sdk-node": "^4.13.23",
