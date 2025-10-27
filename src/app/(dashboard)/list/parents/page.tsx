@@ -3,9 +3,8 @@ import Pagination from "@/components/Pagination";
 import Image from "next/image";
 import Table from "@/components/Table";
 
-import { role } from "@/lib/data";
 import getUserRole from "@/lib/utils";
-import FormModel from "@/components/FormModel";
+
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import prisma from "@/lib/prisma";
 import { Parent, Prisma, Student } from "@prisma/client";

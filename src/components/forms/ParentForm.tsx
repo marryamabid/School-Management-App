@@ -38,6 +38,8 @@ const ParentForm = ({
   );
 
   const onSubmit = handleSubmit((data) => {
+    console.log(data);
+
     formAction(data);
   });
 
@@ -45,7 +47,7 @@ const ParentForm = ({
 
   useEffect(() => {
     if (state.success) {
-      toast(`Lesson has been ${type === "create" ? "created" : "updated"}!`);
+      toast(`Parent has been ${type === "create" ? "created" : "updated"}!`);
       setOpen(false);
       router.refresh();
     }

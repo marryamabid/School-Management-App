@@ -9,6 +9,7 @@ import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import { Class, Event, Prisma } from "@prisma/client";
 import { ca } from "zod/locales";
+import FormContainer from "@/components/FormContainer";
 type EventList = Event & { class: Class };
 
 const EventsListPage = async ({
@@ -127,8 +128,8 @@ const EventsListPage = async ({
         <div className="flex items-center gap-2">
           {role === "admin" && (
             <>
-              <FormModel table="event" type="update" data={item} />
-              <FormModel table="event" type="delete" id={item.id} />
+              <FormContainer table="event" type="update" data={item} />
+              <FormContainer table="event" type="delete" id={item.id} />
             </>
           )}
         </div>
@@ -148,7 +149,7 @@ const EventsListPage = async ({
             <button className="flex w-8 h-8 items-center justify-center bg-lamaYellow rounded-full">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            {role === "admin" && <FormModel table="event" type="create" />}
+            {role === "admin" && <FormContainer table="event" type="create" />}
           </div>
         </div>
       </div>

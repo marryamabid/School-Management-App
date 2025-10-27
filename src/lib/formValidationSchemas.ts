@@ -159,7 +159,7 @@ export const parentSchema = z.object({
     .string()
     .min(10, { message: "Phone number must be at least 10 digits!" }),
   address: z.string().min(1, { message: "Address is required!" }),
-  studentIds: z.array(z.coerce.number()).optional(), // for selecting multiple students
+  studentIds: z.array(z.string()), // for selecting multiple students
 });
 
 export type ParentSchema = z.infer<typeof parentSchema>;

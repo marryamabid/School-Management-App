@@ -1,5 +1,5 @@
 "use server";
-import { success } from "zod";
+import crypto from "crypto";
 import {
   AnnouncementSchema,
   AssignmentSchema,
@@ -299,20 +299,6 @@ export const createStudent = async (
     if (classItem && classItem.capacity === classItem._count.students) {
       return { success: false, error: true, message: "Error creating student" };
     }
-    // const existing = await prisma.student.findUnique({
-    //   where: { username: data.username },
-    // });
-
-    // if (existing) {
-    //   return {
-    //     success: false,
-    //     error: true,
-    //     message: "Teacher already exists!",
-    //   };
-    // }
-
-    // Create user in Clerk
-
     const user = await clerkClient.users.createUser({
       username: data.username,
       password: data.password,
@@ -1206,6 +1192,7 @@ export const updateParent = async (
   data: ParentSchema
 ): Promise<CurrentState> => {
   try {
+    console.log("Creating parent with data:", data);
     await prisma.parent.update({
       where: { id: data.id },
       data: {
