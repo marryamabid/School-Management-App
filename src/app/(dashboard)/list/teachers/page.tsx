@@ -4,7 +4,6 @@ import Image from "next/image";
 import Table from "@/components/Table";
 import getUserRole from "@/lib/utils";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import FormModel from "@/components/FormModel";
 import { Class, Prisma, Subject, Teacher } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
@@ -66,7 +65,7 @@ const TeachersPage = async ({
             alt=""
             width={40}
             height={40}
-            className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+            className="block w-10 h-10 rounded-full object-cover"
           />
           <div className="flex flex-col">
             <h3 className="font-semibold">{item.name}</h3>
