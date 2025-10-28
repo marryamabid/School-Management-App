@@ -44,7 +44,7 @@ const SingleStudentPage = async ({
           <div className="flex flex-1 rounded-md bg-lamaSky gap-4 px-4 py-6">
             <div className="w-1/3">
               <Image
-                src={student.img || "/noavatar.png"}
+                src={student.img || "/profile.png"}
                 width={144}
                 height={144}
                 alt=""

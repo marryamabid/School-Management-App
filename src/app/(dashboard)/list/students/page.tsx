@@ -4,7 +4,6 @@ import Image from "next/image";
 import Table from "@/components/Table";
 import Link from "next/link";
 import getUserRole from "@/lib/utils";
-import FormModel from "@/components/FormModel";
 import { Class, Prisma, Student } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
