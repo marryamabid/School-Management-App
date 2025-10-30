@@ -4,7 +4,7 @@ A modern, full-stack **School Management Dashboard** built with **Next.js, Tailw
 This dashboard enables efficient management of students, teachers, and administrative data with a clean UI and reusable components.
 
 🔗 **Live Demo:** [https://school-management-app-sigma.vercel.app/](https://school-management-app-sigma.vercel.app/)  
-📦 **GitHub Repository:** [Your GitHub Repo Link Here]
+📦 **GitHub Repository:** [https://github.com/marryamabid/School-Management-App.git](https://github.com/marryamabid/School-Management-App.git)
 
 ---
 
@@ -39,45 +39,31 @@ This dashboard enables efficient management of students, teachers, and administr
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/school-management-dashboard.git
-cd school-management-dashboard
+git clone https://github.com/marryamabid/School-Management-App.git
+cd School-Management-App
 2️⃣ Install Dependencies
+
 npm install
 # or
 yarn install
-
 3️⃣ Set Up Environment Variables
-
 Create a .env file in the root directory and add your environment variables:
-
 DATABASE_URL=postgresql://USER:PASSWORD@localhost:5432/school_db
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
 CLERK_SECRET_KEY=your_clerk_secret_key
-
 4️⃣ Run Database Migrations & Seed Data
 npx prisma migrate dev
 npx prisma db seed
-
 5️⃣ Run the Development Server
 npm run dev
 # or
 yarn dev
+Now open http://localhost:3000 in your browser 🚀
 
-
-Now open http://localhost:3000
-in your browser
-
-Author
-
+👩‍💻 Author
 Marryam Abid
-
-License
-
-This project is licensed under the MIT License – feel free to use and modify for your own learning or projects.
+🪪 License
+This project is licensed under the MIT License – feel free to use and modify it for your own learning or projects.
 
 ✨ Developed with passion using Next.js and modern web technologies.
-
-
-
-
 ```
