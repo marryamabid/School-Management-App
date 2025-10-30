@@ -36,9 +36,10 @@ This dashboard enables efficient management of students, teachers, and administr
 
 ## ⚙️ Getting Started
 
-### 1️⃣ Clone the Repository
+###
 
 ```bash
+1️⃣ Clone the Repository
 git clone https://github.com/marryamabid/School-Management-App.git
 cd School-Management-App
 2️⃣ Install Dependencies
