@@ -95,7 +95,7 @@ export default function LandingPage() {
               </Link>
             ) : (
               <Link
-                href="/sign-in"
+                href="#features"
                 className="bg-lamaSky text-white px-6 py-3 rounded-lg hover:bg-lamaPurple transition"
               >
                 Explore Features
