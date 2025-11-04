@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
+import { useUser, SignOutButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/forms/ContactForm";
@@ -27,16 +27,16 @@ export default function LandingPage() {
           </Link>
 
           {/* Navbar Links */}
-          <div className=" md:flex space-x-8 text-gray-600">
+          <div className="md:flex space-x-8 text-gray-600 items-center">
             <Link
               href="#about"
-              className=" hidden md:block text-gray-400 hover:text-lamaPurple transition duration-200"
+              className="hidden md:block text-gray-400 hover:text-lamaPurple transition duration-200"
             >
               About
             </Link>
             <Link
               href="#features"
-              className=" hidden md:block text-gray-400 hover:text-lamaSky transition duration-200"
+              className="hidden md:block text-gray-400 hover:text-lamaSky transition duration-200"
             >
               Features
             </Link>
@@ -47,14 +47,20 @@ export default function LandingPage() {
               Contact
             </Link>
 
-            {/* Get Started Button */}
-            {!isSignedIn && (
+            {/* Auth Buttons */}
+            {!isSignedIn ? (
               <Link
                 href="/sign-in"
                 className="bg-lamaPurple text-white px-4 py-2 rounded-md hover:bg-lamaSky transition duration-300 shadow-sm"
               >
                 Get Started
               </Link>
+            ) : (
+              <SignOutButton redirectUrl="/">
+                <button className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300 shadow-sm">
+                  Sign Out
+                </button>
+              </SignOutButton>
             )}
           </div>
         </div>
@@ -104,26 +110,22 @@ export default function LandingPage() {
 
       {/* About Section */}
       <section id="about" className="container max-w-6xl px-6 py-16 mx-auto">
-        {/* Heading */}
         <h1 className="mb-10 text-4xl font-bold text-center text-gray-800">
           About <span className="text-lamaPurple">SmartLearn</span>
         </h1>
 
-        {/* Content Grid */}
         <div className="grid items-center gap-10 md:grid-cols-2">
-          {/* Left Image */}
           <div className="flex justify-center">
             <Image
               src="/about.jpg"
               alt="Students learning through SmartLearn dashboard"
               width={450}
               height={350}
-              className="rounded-2xl shadow-md transform transition duration-500 ease-in-out hover:scale-105 hover:shadow-xl "
+              className="rounded-2xl shadow-md transform transition duration-500 ease-in-out hover:scale-105 hover:shadow-xl"
               priority
             />
           </div>
 
-          {/* Right Text */}
           <div>
             <p className="text-md font-semibold text-lamaSky uppercase mb-2">
               About SmartLearn
@@ -187,10 +189,9 @@ export default function LandingPage() {
 
       <hr className="border-gray-200" aria-hidden="true" />
 
-      {/* VISION SECTION */}
-
       {/* Contact Section */}
       <ContactForm />
+
       {/* Footer */}
       <Footer />
     </main>
