@@ -13,18 +13,12 @@ function SignInContent() {
   const router = useRouter();
 
   useEffect(() => {
-    // Wait a tiny bit to ensure user metadata is loaded
-    const timer = setTimeout(() => {
-      const role = user?.publicMetadata?.role;
+    if (isLoaded && isSignedIn && user) {
+      const role = user.publicMetadata.role;
       if (role) {
-        console.log("✅ Redirecting to", `/${role}`);
         router.push(`/${role}`);
-      } else {
-        console.warn("⚠️ No role found in user.publicMetadata");
       }
-    }, 200);
-
-    return () => clearTimeout(timer);
+    }
   }, [isLoaded, isSignedIn, user, router]);
 
   return (
