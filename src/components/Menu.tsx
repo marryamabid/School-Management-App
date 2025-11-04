@@ -129,14 +129,14 @@ const menuItems: MenuSection[] = [
   },
 ];
 
-export default async function Menu() {
+const Menu = async () => {
   const user = await currentUser();
   const role = user?.publicMetadata.role as string | undefined;
 
   if (!role) return null;
 
   return <ClientMenu role={role} />;
-}
+};
 
 // ✅ Client component for interactivity
 function ClientMenu({ role }: { role: string }) {
@@ -226,3 +226,4 @@ function ClientMenu({ role }: { role: string }) {
     </div>
   );
 }
+export default Menu;
