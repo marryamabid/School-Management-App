@@ -111,12 +111,6 @@ const menuItems: MenuSection[] = [
         visible: ["admin", "teacher", "student", "parent"],
       },
       {
-        icon: "/setting.png",
-        label: "Settings",
-        action: "settings",
-        visible: ["admin", "teacher", "student", "parent"],
-      },
-      {
         icon: "/logout.png",
         label: "Logout",
         action: "logout",
@@ -160,8 +154,16 @@ export default async function Menu() {
               );
             }
 
-            if (item.action === "profile" || item.action === "settings") {
-              return <UserButton key={item.label} />;
+            if (item.action === "profile") {
+              return (
+                <div
+                  key={item.label}
+                  className="flex text-gray-400 items-center md:px-2 justify-center lg:justify-start gap-2 p-2 rounded-md hover:bg-lamaSkyLight"
+                >
+                  <UserButton />
+                  <span className="hidden lg:block">{item.label}</span>
+                </div>
+              );
             }
 
             // ✅ Normal app route
