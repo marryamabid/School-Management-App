@@ -4,6 +4,7 @@ import AttendanceChartContainer from "@/components/AttendanceChartContainer";
 import CountChartContainer from "@/components/CountChartContainer";
 import EventCalender from "@/components/EventCalender";
 import FinanceChart from "@/components/FinanceChart";
+import Footer from "@/components/Footer";
 import UserCard from "@/components/UserCard";
 
 const AdminPage = () => {
@@ -37,6 +38,7 @@ const AdminPage = () => {
         <EventCalender />
         <Announcements />
       </div>
+      <Footer />
     </div>
   );
 };

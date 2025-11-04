@@ -1,5 +1,6 @@
 import Announcements from "@/components/Announcements";
 import BigCalendarContainer from "@/components/BigCalenderContainer";
+import Footer from "@/components/Footer";
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 const ParentPage = async () => {
@@ -31,6 +32,7 @@ const ParentPage = async () => {
       <div className="w-full xl:w-1/3 flex flex-col gap-8">
         <Announcements />
       </div>
+      <Footer />
     </div>
   );
 };

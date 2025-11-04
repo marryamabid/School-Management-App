@@ -12,10 +12,10 @@ export default function DashboardLayout({
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
       <div className="flex flex-col h-full w-[14%] lg:w-[16%] md:w-[8%] xl:w-[14%] bg-white border-r overflow-y-auto">
-        <div className="flex items-center lg:justify-start gap-2 p-4">
+        <div className="lg:justify-start p-4 text-xl font-bold flex items-center gap-2 text-lamaPurple hover:text-lamaSky transition">
           <Image src="/logo.png" alt="Logo" width={30} height={30} />
           <span className="hidden lg:block font-semibold text-base">
-            SchoolLama
+            SmartSchool
           </span>
         </div>
         <Menu />

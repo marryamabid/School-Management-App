@@ -70,7 +70,7 @@ export const studentSchema = z.object({
   phone: z.string().optional(),
   address: z.string(),
   image: z.string().optional(),
-  birthday: z.coerce.date().min(1, { message: "Birthdate is required" }),
+  birthday: z.coerce.date({ message: "Birthdate is required" }),
   sex: z.enum(["MALE", "FEMALE"], { message: "Sex is required" }),
   bloodType: z.string().min(1, { message: "Blood type is required" }),
   gradeId: z.coerce.number().min(1, { message: "Grade is required!" }),
@@ -163,3 +163,14 @@ export const parentSchema = z.object({
 });
 
 export type ParentSchema = z.infer<typeof parentSchema>;
+
+export const contactSchema = z.object({
+  id: z.coerce.number().optional(),
+  name: z.string().min(2, { message: "Name is required!" }),
+  email: z.string().email({ message: "Invalid email address!" }),
+  message: z
+    .string()
+    .min(5, { message: "Message should be at least 5 characters long!" }),
+});
+
+export type ContactSchema = z.infer<typeof contactSchema>;

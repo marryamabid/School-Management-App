@@ -1,36 +1,40 @@
-# 🏫 School Management Dashboard (Next.js)
+<div align="center">
+# 🎓 SmartLearn School Management Dashboard
+### Smarter Learning. Simplified Management.
 
-A modern, full-stack **School Management Dashboard** built with **Next.js, Tailwind CSS, PostgreSQL, Prisma ORM, Docker, and Clerk Authentication**.  
-This dashboard enables efficient management of students, teachers, and administrative data with a clean UI and reusable components.
+A modern, full-stack **School Management System** built with **Next.js, Tailwind CSS, PostgreSQL, Prisma ORM, Docker, and Clerk Authentication**.  
+SmartLearn empowers schools to manage classes, students, teachers, attendance, and communication — all in one smart platform.
 
 🔗 **Live Demo:** [https://school-management-app-sigma.vercel.app/](https://school-management-app-sigma.vercel.app/)  
 📦 **GitHub Repository:** [https://github.com/marryamabid/School-Management-App.git](https://github.com/marryamabid/School-Management-App.git)
 
----
+## </div>
 
 ## 🚀 Features
 
-- 📊 **Dashboard Overview:** Displays key statistics for students, classes, and staff.
-- 👩‍🏫 **Role-Based Management:** Manage students, teachers, and admins securely.
-- 🧩 **Reusable Components:** Modular design for easy scalability and maintenance.
-- 🧠 **React Hooks & Context API:** Efficient state management and dynamic updates.
-- 🗄️ **Database Integration:** PostgreSQL database connected via Prisma ORM.
-- 🔒 **User Authentication:** Secure login system powered by Clerk.
-- 🐳 **Docker Support:** Easily containerized setup for consistent development environments.
-- 🧰 **API Routes:** Optimized API endpoints for CRUD operations.
+- 🧠 **Smart Dashboard** – Overview of school stats, attendance, and performance.
+- 👩‍🏫 **Role-Based Access** – Manage students, teachers, and admins securely.
+- 🗂️ **Automated Attendance** – Track attendance in real time.
+- 📄 **Digital Reports** – Generate student performance insights instantly.
+- 💬 **Seamless Communication** – Teachers, parents, and students stay connected.
+- 🧩 **Reusable Components** – Modular design for easy scalability.
+- 🔒 **Secure Authentication** – Clerk integration ensures data privacy and access control.
+- 🐳 **Docker Support** – Consistent development and deployment environments.
+- ✉️ **Contact Form Integration** – Stores messages directly in your PostgreSQL database.
 
 ---
 
-## 🛠️ Technologies Used
+## 🛠️ Tech Stack
 
 | Category           | Technologies                 |
 | ------------------ | ---------------------------- |
 | **Frontend**       | Next.js, React, Tailwind CSS |
 | **Backend**        | Next.js API Routes           |
-| **Database**       | PostgreSQL with Prisma ORM   |
+| **Database**       | PostgreSQL + Prisma ORM      |
 | **Authentication** | Clerk                        |
+| **Validation**     | Zod + React Hook Form        |
 | **DevOps**         | Docker, Vercel               |
-| **Other Tools**    | TypeScript, ESLint, Prettier |
+| **Utilities**      | TypeScript, ESLint, Prettier |
 
 ---
 

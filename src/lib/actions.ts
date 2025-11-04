@@ -4,6 +4,7 @@ import {
   AnnouncementSchema,
   AssignmentSchema,
   ClassSchema,
+  ContactSchema,
   EventSchema,
   ExamSchema,
   LessonSchema,
@@ -311,14 +312,14 @@ export const createStudent = async (
     // Create student in DB
     await prisma.student.create({
       data: {
-        id: user.id, // Clerk user ID
+        id: user.id,
         username: data.username,
-        email: data.email,
         name: data.name,
         surname: data.surname,
-        phone: data.phone,
+        email: data.email || null,
+        phone: data.phone || null,
         address: data.address,
-        img: data.image,
+        img: data.image || null,
         bloodType: data.bloodType,
         sex: data.sex,
         birthday: data.birthday,
@@ -358,14 +359,14 @@ export const updateStudent = async (
     await prisma.student.update({
       where: { id: data.id },
       data: {
-        ...(data.password !== "" && { password: data.password }), // Only update if password is not empty
+        ...(data.password !== "" && { password: data.password }),
         username: data.username,
-        email: data.email,
         name: data.name,
         surname: data.surname,
-        phone: data.phone,
+        email: data.email || null,
+        phone: data.phone || null,
         address: data.address,
-        img: data.image,
+        img: data.image || null,
         bloodType: data.bloodType,
         sex: data.sex,
         birthday: data.birthday,
@@ -406,11 +407,11 @@ export const deleteStudent = async (
 
     // Delete from Prisma (always)
     await prisma.student.delete({ where: { id } });
-    console.log("✅ Student deleted successfully");
+    console.log(" Student deleted successfully");
 
     return { success: true, error: false };
   } catch (err) {
-    console.error("❌ Delete error:", err);
+    console.error(" Delete error:", err);
     return { success: false, error: true };
   }
 };
@@ -516,10 +517,10 @@ export const deleteExam = async (
       where: { id: Number(id) },
     });
 
-    console.log("✅ Exam deleted successfully");
+    console.log(" Exam deleted successfully");
     return { success: true, error: false };
   } catch (err) {
-    console.error("❌ Delete error:", err);
+    console.error(" Delete error:", err);
     return { success: false, error: true };
   }
 };
@@ -1226,15 +1227,45 @@ export const deleteParent = async (
 ): Promise<CurrentState> => {
   const id = formData.get("id") as string;
 
+  if (!id) return { success: false, error: true };
+
   try {
+    // Step 1: Delete all students belonging to this parent
+    await prisma.student.deleteMany({
+      where: { parentId: id },
+    });
+    console.log("🧾 All students linked to this parent deleted.");
+
+    // Step 2: Delete the parent
     await prisma.parent.delete({
       where: { id },
     });
+    console.log(" Parent deleted successfully.");
 
-    // revalidatePath("/dashboard/parents");
     return { success: true, error: false };
   } catch (error) {
     console.error(" Error deleting parent:", error);
+    return { success: false, error: true };
+  }
+};
+export const createContact = async (
+  currentState: CurrentState,
+  data: ContactSchema
+): Promise<CurrentState> => {
+  try {
+    await prisma.contact.create({
+      data: {
+        id: crypto.randomUUID(),
+        name: data.name,
+        email: data.email,
+        message: data.message,
+      },
+    });
+
+    console.log(" Contact message saved:", data);
+    return { success: true, error: false };
+  } catch (error) {
+    console.error(" Error saving contact message:", error);
     return { success: false, error: true };
   }
 };

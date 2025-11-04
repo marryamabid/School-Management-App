@@ -179,7 +179,13 @@ model Announcement {
   classId Int?
   class   Class? @relation(fields: [classId], references: [id])
 }
-
+model Contact {
+  id       String   @id @default(uuid())
+  name     String
+  email    String
+  message  String
+  createdAt DateTime @default(now())
+}
 enum UserSex {
   MALE
   FEMALE
