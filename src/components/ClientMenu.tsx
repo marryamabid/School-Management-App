@@ -2,11 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { currentUser } from "@clerk/nextjs/server";
 import { SignOutButton, UserProfile } from "@clerk/nextjs";
 import { useState } from "react";
 
-// Type definitions
 type MenuItem = {
   icon: string;
   label: string;
@@ -129,17 +127,7 @@ const menuItems: MenuSection[] = [
   },
 ];
 
-const Menu = async () => {
-  const user = await currentUser();
-  const role = user?.publicMetadata.role as string | undefined;
-
-  if (!role) return null;
-
-  return <ClientMenu role={role} />;
-};
-
-// ✅ Client component for interactivity
-function ClientMenu({ role }: { role: string }) {
+export default function ClientMenu({ role }: { role: string }) {
   const [openSection, setOpenSection] = useState<"profile" | "settings" | null>(
     null
   );
@@ -168,6 +156,23 @@ function ClientMenu({ role }: { role: string }) {
                     <span className="hidden lg:block">{item.label}</span>
                   </button>
                 </SignOutButton>
+              );
+            }
+            if (item.href === "/") {
+              return (
+                <Link
+                  href={`/${role}`}
+                  key={item.label}
+                  className="flex text-gray-400 items-center md:px-2 justify-center lg:justify-start gap-2 p-2 rounded-md hover:bg-lamaSkyLight"
+                >
+                  <Image
+                    src={item.icon}
+                    alt={item.label}
+                    width={20}
+                    height={20}
+                  />
+                  <span className="hidden lg:block">{item.label}</span>
+                </Link>
               );
             }
 
@@ -226,4 +231,3 @@ function ClientMenu({ role }: { role: string }) {
     </div>
   );
 }
-export default Menu;
