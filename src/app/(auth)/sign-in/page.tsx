@@ -13,10 +13,19 @@ function SignInContent() {
   const router = useRouter();
 
   useEffect(() => {
+    console.log("⏳ useEffect triggered");
+    console.log("isLoaded:", isLoaded);
+    console.log("isSignedIn:", isSignedIn);
+    console.log("user:", user);
+    console.log("role:", user?.publicMetadata?.role);
+
     if (isLoaded && isSignedIn && user) {
-      const role = user.publicMetadata.role;
+      const role = user.publicMetadata?.role;
       if (role) {
+        console.log("✅ Redirecting to:", `/${role}`);
         router.push(`/${role}`);
+      } else {
+        console.warn("⚠️ No role found, staying on sign-in page");
       }
     }
   }, [isLoaded, isSignedIn, user, router]);

@@ -4,7 +4,6 @@ import EventCalender from "@/components/EventCalender";
 import BigCalendarContainer from "@/components/BigCalenderContainer";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
-import Footer from "@/components/Footer";
 const StudentPage = async () => {
   const { userId } = await auth();
 
@@ -26,7 +25,6 @@ const StudentPage = async () => {
         <EventCalender />
         <Announcements />
       </div>
-      <Footer />
     </div>
   );
 };

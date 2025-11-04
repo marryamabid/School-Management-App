@@ -1,6 +1,5 @@
 import Announcements from "@/components/Announcements";
 import BigCalenderContainer from "@/components/BigCalenderContainer";
-import Footer from "@/components/Footer";
 import { auth } from "@clerk/nextjs/server";
 
 const TeacherPage = async () => {
@@ -16,7 +15,6 @@ const TeacherPage = async () => {
       <div className="w-full xl:w-1/3 flex flex-col gap-8">
         <Announcements />
       </div>
-      <Footer />
     </div>
   );
 };
