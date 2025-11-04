@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
-import MenuServer from "@/components/MenuServer";
+import MenuServer from "@/components/Menu";
+import Menu from "@/components/Menu";
 
 export default function DashboardLayout({
   children,
@@ -20,7 +21,7 @@ export default function DashboardLayout({
             </span>
           </Link>
         </div>
-        <MenuServer />
+        <Menu />
       </div>
 
       {/* Main content */}

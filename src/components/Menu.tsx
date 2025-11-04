@@ -1,10 +1,9 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { SignOutButton, UserProfile } from "@clerk/nextjs";
-import { useState } from "react";
+import { currentUser } from "@clerk/nextjs/server";
+import { SignOutButton, UserButton } from "@clerk/nextjs";
 
+// Type definitions for menu items
 type MenuItem = {
   icon: string;
   label: string;
@@ -127,10 +126,11 @@ const menuItems: MenuSection[] = [
   },
 ];
 
-export default function ClientMenu({ role }: { role: string }) {
-  const [openSection, setOpenSection] = useState<"profile" | "settings" | null>(
-    null
-  );
+export default async function Menu() {
+  const user = await currentUser();
+  const role = user?.publicMetadata.role as string | undefined;
+
+  if (!role) return null;
 
   return (
     <div>
@@ -143,6 +143,7 @@ export default function ClientMenu({ role }: { role: string }) {
           {section.items.map((item) => {
             if (!item.visible.includes(role)) return null;
 
+            // ✅ Logout button
             if (item.action === "logout") {
               return (
                 <SignOutButton redirectUrl="/sign-in" key={item.label}>
@@ -158,10 +159,16 @@ export default function ClientMenu({ role }: { role: string }) {
                 </SignOutButton>
               );
             }
-            if (item.href === "/") {
+
+            if (item.action === "profile" || item.action === "settings") {
+              return <UserButton />;
+            }
+
+            // ✅ Normal app route
+            if (item.href) {
               return (
                 <Link
-                  href={`/${role}`}
+                  href={item.href}
                   key={item.label}
                   className="flex text-gray-400 items-center md:px-2 justify-center lg:justify-start gap-2 p-2 rounded-md hover:bg-lamaSkyLight"
                 >
@@ -176,58 +183,10 @@ export default function ClientMenu({ role }: { role: string }) {
               );
             }
 
-            if (item.action === "profile" || item.action === "settings") {
-              return (
-                <button
-                  key={item.label}
-                  onClick={() =>
-                    setOpenSection(item.action as "profile" | "settings")
-                  }
-                  className="flex text-gray-400 items-center md:px-2 justify-center lg:justify-start gap-2 p-2 rounded-md hover:bg-lamaSkyLight"
-                >
-                  <Image
-                    src={item.icon}
-                    alt={item.label}
-                    width={20}
-                    height={20}
-                  />
-                  <span className="hidden lg:block">{item.label}</span>
-                </button>
-              );
-            }
-
-            return (
-              <Link
-                href={item.href!}
-                key={item.label}
-                className="flex text-gray-400 items-center md:px-2 justify-center lg:justify-start gap-2 p-2 rounded-md hover:bg-lamaSkyLight"
-              >
-                <Image
-                  src={item.icon}
-                  alt={item.label}
-                  width={20}
-                  height={20}
-                />
-                <span className="hidden lg:block">{item.label}</span>
-              </Link>
-            );
+            return null;
           })}
         </div>
       ))}
-
-      {openSection && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-          <div className="bg-white rounded-2xl p-4 w-[90%] md:w-[600px] h-[80vh] overflow-y-auto relative">
-            <button
-              onClick={() => setOpenSection(null)}
-              className="absolute top-2 right-3 text-gray-500 hover:text-gray-800"
-            >
-              ✕
-            </button>
-            <UserProfile routing="hash" />
-          </div>
-        </div>
-      )}
     </div>
   );
 }
