@@ -13,8 +13,6 @@ function SignInContent() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoaded || !isSignedIn) return;
-
     // Wait a tiny bit to ensure user metadata is loaded
     const timer = setTimeout(() => {
       const role = user?.publicMetadata?.role;
