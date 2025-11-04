@@ -161,7 +161,7 @@ export default async function Menu() {
             }
 
             if (item.action === "profile" || item.action === "settings") {
-              return <UserButton />;
+              return <UserButton key={item.label} />;
             }
 
             // ✅ Normal app route
