@@ -48,20 +48,19 @@ export default function LandingPage() {
             </Link>
 
             {/* Auth Buttons */}
-            {isSignedIn ? (
-              <Link
-                href={`/${user?.publicMetadata?.role || "student"}`}
-                className="bg-lamaPurple text-white px-6 py-3 rounded-lg hover:bg-lamaSky transition"
-              >
-                Go to Dashboard
-              </Link>
-            ) : (
+            {!isSignedIn ? (
               <Link
                 href="/sign-in"
-                className="bg-lamaSky text-white px-6 py-3 rounded-lg hover:bg-lamaPurple transition"
+                className="bg-lamaPurple text-white px-4 py-2 rounded-md hover:bg-lamaSky transition duration-300 shadow-sm"
               >
-                Explore Features
+                Get Started
               </Link>
+            ) : (
+              <SignOutButton redirectUrl="/">
+                <button className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300 shadow-sm">
+                  Sign Out
+                </button>
+              </SignOutButton>
             )}
           </div>
         </div>
@@ -87,12 +86,21 @@ export default function LandingPage() {
                 Get Started
               </Link>
             )}
-            <Link
-              href="#features"
-              className="px-6 py-3 border border-lamaPurple text-lamaPurple rounded-md hover:bg-lamaPurple hover:text-white transition duration-300"
-            >
-              Explore Features
-            </Link>
+            {isSignedIn ? (
+              <Link
+                href={`/${user?.publicMetadata?.role || "student"}`}
+                className="bg-lamaPurple text-white px-6 py-3 rounded-lg hover:bg-lamaSky transition"
+              >
+                Go to Dashboard
+              </Link>
+            ) : (
+              <Link
+                href="/sign-in"
+                className="bg-lamaSky text-white px-6 py-3 rounded-lg hover:bg-lamaPurple transition"
+              >
+                Explore Features
+              </Link>
+            )}
           </div>
         </div>
 
