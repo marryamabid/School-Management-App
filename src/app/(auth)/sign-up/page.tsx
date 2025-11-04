@@ -33,34 +33,12 @@ function SignUpContent() {
 
           <Clerk.GlobalError className="text-sm text-red-400" />
 
-          <Clerk.Field name="firstName" className="flex flex-col gap-2">
+          <Clerk.Field name="userName" className="flex flex-col gap-2">
             <Clerk.Label className="text-xs text-gray-500">
-              First Name
+              Username
             </Clerk.Label>
             <Clerk.Input
               type="text"
-              required
-              className="p-2 rounded-md ring-1 ring-gray-300"
-            />
-            <Clerk.FieldError className="text-xs text-red-400" />
-          </Clerk.Field>
-
-          <Clerk.Field name="lastName" className="flex flex-col gap-2">
-            <Clerk.Label className="text-xs text-gray-500">
-              Last Name
-            </Clerk.Label>
-            <Clerk.Input
-              type="text"
-              required
-              className="p-2 rounded-md ring-1 ring-gray-300"
-            />
-            <Clerk.FieldError className="text-xs text-red-400" />
-          </Clerk.Field>
-
-          <Clerk.Field name="emailAddress" className="flex flex-col gap-2">
-            <Clerk.Label className="text-xs text-gray-500">Email</Clerk.Label>
-            <Clerk.Input
-              type="email"
               required
               className="p-2 rounded-md ring-1 ring-gray-300"
             />
