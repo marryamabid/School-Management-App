@@ -19,13 +19,15 @@ function SignInContent() {
     console.log("user:", user);
     console.log("role:", user?.publicMetadata?.role);
 
-    if (isLoaded && isSignedIn && user) {
+    if (!isLoaded) return; // wait until Clerk fully loads
+
+    if (isSignedIn && user) {
       const role = user.publicMetadata?.role;
       if (role) {
-        console.log("✅ Redirecting to:", `/${role}`);
+        console.log("✅ Redirecting to", `/${role}`);
         router.push(`/${role}`);
       } else {
-        console.warn("⚠️ No role found, staying on sign-in page");
+        console.log("⚠️ No role found in user.publicMetadata");
       }
     }
   }, [isLoaded, isSignedIn, user, router]);
@@ -76,7 +78,6 @@ function SignInContent() {
             Sign In
           </SignIn.Action>
 
-          {/* 👇 Add this line for navigation */}
           <p className="text-xs text-gray-500 text-center mt-2">
             Don&apos;t have an account?{" "}
             <Link

@@ -28,16 +28,18 @@ export default function ContactForm() {
   const router = useRouter();
 
   const onSubmit = handleSubmit((data) => {
+    console.log(data);
+
     formAction(data);
   });
 
   useEffect(() => {
     if (state.success) {
-      toast("✅ Message sent successfully!");
+      toast(" Message sent successfully!");
       router.refresh();
     }
     if (state.error) {
-      toast("❌ Something went wrong!");
+      toast(" Something went wrong!");
     }
   }, [state, router]);
 
@@ -95,9 +97,7 @@ export default function ContactForm() {
         </p>
       )}
       {state.error && (
-        <p className="text-red-600 text-center mt-4">
-          ❌ Something went wrong!
-        </p>
+        <p className="text-red-600 text-center mt-4">Something went wrong!</p>
       )}
     </section>
   );

@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import ContactForm from "@/components/forms/ContactForm";
 
 export default function LandingPage() {
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
 
   return (
     <main className="flex flex-col min-h-screen bg-white">
@@ -48,19 +48,20 @@ export default function LandingPage() {
             </Link>
 
             {/* Auth Buttons */}
-            {!isSignedIn ? (
+            {isSignedIn ? (
               <Link
-                href="/sign-in"
-                className="bg-lamaPurple text-white px-4 py-2 rounded-md hover:bg-lamaSky transition duration-300 shadow-sm"
+                href={`/${user?.publicMetadata?.role || "student"}`}
+                className="bg-lamaPurple text-white px-6 py-3 rounded-lg hover:bg-lamaSky transition"
               >
-                Get Started
+                Go to Dashboard
               </Link>
             ) : (
-              <SignOutButton redirectUrl="/">
-                <button className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300 shadow-sm">
-                  Sign Out
-                </button>
-              </SignOutButton>
+              <Link
+                href="/sign-in"
+                className="bg-lamaSky text-white px-6 py-3 rounded-lg hover:bg-lamaPurple transition"
+              >
+                Explore Features
+              </Link>
             )}
           </div>
         </div>
