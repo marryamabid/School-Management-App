@@ -14,16 +14,21 @@ function SignInContent() {
 
   // ✅ Redirect to dashboard after sign-in based on role
   useEffect(() => {
-    // Only run when Clerk is fully loaded
-    if (!isLoaded) return;
+    console.log("⏳ useEffect triggered");
+    console.log("isLoaded:", isLoaded);
+    console.log("isSignedIn:", isSignedIn);
+    console.log("user:", user);
+    console.log("role:", user?.publicMetadata?.role);
+
+    if (!isLoaded) return; // wait until Clerk fully loads
 
     if (isSignedIn && user) {
       const role = user.publicMetadata?.role;
-
       if (role) {
+        console.log("✅ Redirecting to", `/${role}`);
         router.push(`/${role}`);
       } else {
-        router.push("/");
+        console.log("⚠️ No role found in user.publicMetadata");
       }
     }
   }, [isLoaded, isSignedIn, user, router]);
