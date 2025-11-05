@@ -1,26 +1,27 @@
 "use client";
 
+import { Suspense, useEffect } from "react";
 import * as Clerk from "@clerk/elements/common";
 import * as SignIn from "@clerk/elements/sign-in";
 import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
-import { useEffect, Suspense } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-function SignInContent() {
+const LoginPage = () => {
   const { isLoaded, isSignedIn, user } = useUser();
   const router = useRouter();
 
   useEffect(() => {
+    if (!isLoaded) return;
+
     // Wait a tiny bit to ensure user metadata is loaded
     const timer = setTimeout(() => {
       const role = user?.publicMetadata?.role;
-      if (role) {
+      if (isSignedIn && role) {
         console.log("✅ Redirecting to", `/${role}`);
         router.push(`/${role}`);
-      } else {
-        router.push(`/`);
+      } else if (isSignedIn && !role) {
+        console.warn("⚠️ No role found in user.publicMetadata");
       }
     }, 200);
 
@@ -35,10 +36,17 @@ function SignInContent() {
           className="bg-white p-12 rounded-md shadow-2xl flex flex-col gap-2"
         >
           <h1 className="text-xl font-bold flex items-center gap-2 text-lamaPurple hover:text-lamaSky transition">
-            <Image src="/logo.png" alt="logo" width={24} height={24} />
+            <Image
+              src="/logo.png"
+              alt="SmartLearn logo"
+              width={24}
+              height={24}
+            />
             SmartLearn
           </h1>
+
           <h2 className="text-gray-400">Sign in to your account</h2>
+
           <Clerk.GlobalError className="text-sm text-red-400" />
 
           <Clerk.Field name="identifier" className="flex flex-col gap-2">
@@ -75,12 +83,19 @@ function SignInContent() {
       </SignIn.Root>
     </div>
   );
-}
+};
 
-export default function LoginPage() {
+// ✅ Wrap in Suspense for better handling of loading / hydration states
+export default function LoginPageWithSuspense() {
   return (
-    <Suspense fallback={<div>Loading sign-in page...</div>}>
-      <SignInContent />
+    <Suspense
+      fallback={
+        <div className="flex h-screen items-center justify-center text-gray-500">
+          Loading...
+        </div>
+      }
+    >
+      <LoginPage />
     </Suspense>
   );
 }
