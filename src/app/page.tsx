@@ -19,8 +19,8 @@ export default function LandingPage() {
               <Image
                 src="/logo.png"
                 alt="SmartLearn logo"
-                width={28}
-                height={28}
+                width={32}
+                height={32}
               />
               SmartLearn
             </h1>
@@ -53,7 +53,7 @@ export default function LandingPage() {
                 href="/sign-in"
                 className="bg-lamaPurple text-white px-4 py-2 rounded-md hover:bg-lamaSky transition duration-300 shadow-sm"
               >
-                Get Started
+                Sign In
               </Link>
             ) : (
               <SignOutButton redirectUrl="/">

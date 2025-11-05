@@ -14,9 +14,17 @@ function SignInContent() {
 
   // ✅ Redirect to dashboard after sign-in based on role
   useEffect(() => {
-    if (isLoaded && isSignedIn && user) {
-      const role = user.publicMetadata.role || "student"; // default role
-      router.push(`/${role}`);
+    // Only run when Clerk is fully loaded
+    if (!isLoaded) return;
+
+    if (isSignedIn && user) {
+      const role = user.publicMetadata?.role;
+
+      if (role) {
+        router.push(`/${role}`);
+      } else {
+        router.push("/");
+      }
     }
   }, [isLoaded, isSignedIn, user, router]);
 
