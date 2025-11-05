@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Suspense, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 function SignUpContent() {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -13,7 +14,7 @@ function SignUpContent() {
 
   useEffect(() => {
     if (isLoaded && isSignedIn && user) {
-      const role = user.publicMetadata.role || "student"; // default role
+      const role = user.publicMetadata.role || "student";
       router.push(`/${role}`);
     }
   }, [isLoaded, isSignedIn, user, router]);
@@ -23,7 +24,7 @@ function SignUpContent() {
       <SignUp.Root>
         <SignUp.Step
           name="start"
-          className="bg-white p-12 rounded-md shadow-2xl flex flex-col gap-2 w-[360px]"
+          className="bg-white p-12 rounded-md shadow-2xl flex flex-col gap-3 w-[360px]"
         >
           <h1 className="text-xl font-bold flex items-center gap-2 text-lamaPurple hover:text-lamaSky transition">
             <Image src="/logo.png" alt="logo" width={24} height={24} />
@@ -32,19 +33,30 @@ function SignUpContent() {
           <h2 className="text-gray-400 mb-2">Create your account</h2>
 
           <Clerk.GlobalError className="text-sm text-red-400" />
-
-          <Clerk.Field name="userName" className="flex flex-col gap-2">
+          <Clerk.Field name="username" className="flex flex-col gap-2">
             <Clerk.Label className="text-xs text-gray-500">
               Username
             </Clerk.Label>
             <Clerk.Input
               type="text"
+              className="p-2 rounded-md ring-1 ring-gray-300"
+            />
+            <Clerk.FieldError className="text-xs text-red-400" />
+          </Clerk.Field>
+          {/* ✅ Email field (REQUIRED) */}
+          <Clerk.Field name="emailAddress" className="flex flex-col gap-2">
+            <Clerk.Label className="text-xs text-gray-500">Email</Clerk.Label>
+            <Clerk.Input
+              type="email"
               required
               className="p-2 rounded-md ring-1 ring-gray-300"
             />
             <Clerk.FieldError className="text-xs text-red-400" />
           </Clerk.Field>
 
+          {/* Optional username */}
+
+          {/* ✅ Password field (REQUIRED) */}
           <Clerk.Field name="password" className="flex flex-col gap-2">
             <Clerk.Label className="text-xs text-gray-500">
               Password
@@ -63,6 +75,16 @@ function SignUpContent() {
           >
             Sign Up
           </SignUp.Action>
+
+          <p className="text-xs text-gray-500 text-center mt-2">
+            Already have an account?{" "}
+            <Link
+              href="/sign-in"
+              className="text-lamaPurple hover:text-lamaSky font-medium transition"
+            >
+              Sign In
+            </Link>
+          </p>
         </SignUp.Step>
       </SignUp.Root>
     </div>

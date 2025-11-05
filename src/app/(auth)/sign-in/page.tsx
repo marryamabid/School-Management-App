@@ -1,16 +1,18 @@
 "use client";
 
 import * as Clerk from "@clerk/elements/common";
-import * as SignUp from "@clerk/elements/sign-up";
+import * as SignIn from "@clerk/elements/sign-in";
 import Image from "next/image";
 import { Suspense, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
-function SignUpContent() {
+function SignInContent() {
   const { isLoaded, isSignedIn, user } = useUser();
   const router = useRouter();
 
+  // ✅ Redirect to dashboard after sign-in based on role
   useEffect(() => {
     if (isLoaded && isSignedIn && user) {
       const role = user.publicMetadata.role || "student"; // default role
@@ -20,31 +22,28 @@ function SignUpContent() {
 
   return (
     <div className="h-screen flex items-center justify-center bg-lamaSkyLight">
-      <SignUp.Root>
-        <SignUp.Step
+      <SignIn.Root>
+        <SignIn.Step
           name="start"
-          className="bg-white p-12 rounded-md shadow-2xl flex flex-col gap-2 w-[360px]"
+          className="bg-white p-12 rounded-md shadow-2xl flex flex-col gap-3 w-[360px]"
         >
           <h1 className="text-xl font-bold flex items-center gap-2 text-lamaPurple hover:text-lamaSky transition">
             <Image src="/logo.png" alt="logo" width={24} height={24} />
             SmartLearn
           </h1>
-          <h2 className="text-gray-400 mb-2">Create your account</h2>
-
+          <h2 className="text-gray-400 mb-2">Sign in to your account</h2>
           <Clerk.GlobalError className="text-sm text-red-400" />
-
           <Clerk.Field name="username" className="flex flex-col gap-2">
             <Clerk.Label className="text-xs text-gray-500">
               Username
             </Clerk.Label>
             <Clerk.Input
               type="text"
-              required
               className="p-2 rounded-md ring-1 ring-gray-300"
             />
             <Clerk.FieldError className="text-xs text-red-400" />
           </Clerk.Field>
-
+          {/* ✅ Password */}
           <Clerk.Field name="password" className="flex flex-col gap-2">
             <Clerk.Label className="text-xs text-gray-500">
               Password
@@ -56,23 +55,31 @@ function SignUpContent() {
             />
             <Clerk.FieldError className="text-xs text-red-400" />
           </Clerk.Field>
-
-          <SignUp.Action
+          <SignIn.Action
             submit
             className="bg-blue-500 text-white my-1 rounded-md text-sm p-[10px]"
           >
-            Sign Up
-          </SignUp.Action>
-        </SignUp.Step>
-      </SignUp.Root>
+            Sign In
+          </SignIn.Action>
+          <p className="text-xs text-gray-500 text-center mt-2">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/sign-up"
+              className="text-lamaPurple hover:text-lamaSky font-medium transition"
+            >
+              Sign Up
+            </Link>
+          </p>
+        </SignIn.Step>
+      </SignIn.Root>
     </div>
   );
 }
 
-export default function SignUpPage() {
+export default function SignInPage() {
   return (
-    <Suspense fallback={<div>Loading sign-up page...</div>}>
-      <SignUpContent />
+    <Suspense fallback={<div>Loading sign-in page...</div>}>
+      <SignInContent />
     </Suspense>
   );
 }
