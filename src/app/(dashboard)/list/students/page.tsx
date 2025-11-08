@@ -3,7 +3,7 @@ import Pagination from "@/components/Pagination";
 import Image from "next/image";
 import Table from "@/components/Table";
 import Link from "next/link";
-import getUserRole from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
 import { Class, Prisma, Student } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
@@ -17,7 +17,10 @@ const StudentsListPage = async ({
   searchParams: { [key: string]: string | undefined };
 }) => {
   // console.log(searchParams);
-  const { role, currentUserId } = await getUserRole();
+  const { userId, sessionClaims } = await auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+
+  console.log(role);
   let data: StudentList[] = [];
   let count = 0;
 

@@ -2,8 +2,7 @@ import TableSearch from "@/components/TableSeacrch";
 import Pagination from "@/components/Pagination";
 import Image from "next/image";
 import Table from "@/components/Table";
-import getUserRole from "@/lib/utils";
-import FormModel from "@/components/FormModel";
+import { auth } from "@clerk/nextjs/server";
 import { Prisma, Subject, Teacher } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
@@ -16,7 +15,10 @@ const SubjectsListPage = async ({
   searchParams: { [key: string]: string | undefined };
 }) => {
   // console.log(searchParams);
-  const { role } = await getUserRole();
+  const { userId, sessionClaims } = await auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+
+  console.log(role);
   const { page, ...queryParams } = searchParams;
   const p = page ? parseInt(page) : 1;
   const query: Prisma.SubjectWhereInput = {};

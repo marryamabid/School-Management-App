@@ -2,13 +2,11 @@ import TableSearch from "@/components/TableSeacrch";
 import Pagination from "@/components/Pagination";
 import Image from "next/image";
 import Table from "@/components/Table";
-
-import getUserRole from "@/lib/utils";
-
 import { ITEM_PER_PAGE } from "@/lib/settings";
 import prisma from "@/lib/prisma";
 import { Parent, Prisma, Student } from "@prisma/client";
 import FormContainer from "@/components/FormContainer";
+import { auth } from "@clerk/nextjs/server";
 type ParentList = Parent & { students: Student[] };
 
 const ParentsListPage = async ({
@@ -19,7 +17,11 @@ const ParentsListPage = async ({
   // console.log(searchParams);
   let data: ParentList[] = [];
   let count = 0;
-  const { role, currentUserId } = await getUserRole();
+  const { userId, sessionClaims } = await auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+
+  console.log(role);
+
   const { page, ...queryParams } = searchParams;
   const p = page ? parseInt(page) : 1;
   const query: Prisma.ParentWhereInput = {};
