@@ -25,11 +25,11 @@ export const teacherSchema = z.object({
   id: z.coerce.string().optional(),
   username: z
     .string()
-    .min(8, { message: "Username must have at least 8 characters" })
+    .min(4, { message: "Username must have at least 4 characters" })
     .max(20, { message: "Username must be less than 20 characters" }),
   password: z
     .string()
-    .min(8, { message: "Password must have at least 8 characters" })
+    .min(4, { message: "Password must have at least 4 characters" })
     .optional()
     .or(z.literal("")),
   name: z.string().min(1, { message: "First name is required" }),
@@ -57,7 +57,7 @@ export const studentSchema = z.object({
     .max(20, { message: "Username must be less than 20 characters" }),
   password: z
     .string()
-    .min(8, { message: "Password must have at least 8 characters" })
+    .min(4, { message: "Password must have at least 4 characters" })
     .optional()
     .or(z.literal("")),
   name: z.string().min(1, { message: "First name is required" }),
@@ -150,11 +150,17 @@ export const parentSchema = z.object({
     .min(3, { message: "Username must be at least 3 characters long!" }),
   name: z.string().min(1, { message: "First name is required!" }),
   surname: z.string().min(1, { message: "Surname is required!" }),
+
   email: z
     .string()
     .email({ message: "Invalid email address!" })
     .optional()
-    .or(z.literal("").transform(() => undefined)), // allows optional email
+    .or(z.literal("").transform(() => undefined)),
+  password: z
+    .string()
+    .min(4, { message: "Password must have at least 8 characters" })
+    .optional()
+    .or(z.literal("")),
   phone: z
     .string()
     .min(10, { message: "Phone number must be at least 10 digits!" }),

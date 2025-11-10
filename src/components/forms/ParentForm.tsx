@@ -97,7 +97,14 @@ const ParentForm = ({
           register={register}
           error={errors?.email}
         />
-
+        <InputField
+          label="Password"
+          name="password"
+          type="password"
+          defaultValue={data?.password}
+          register={register}
+          error={errors?.password}
+        />
         {/* Phone */}
         <InputField
           label="Phone"

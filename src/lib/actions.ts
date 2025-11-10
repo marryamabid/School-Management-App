@@ -1164,19 +1164,23 @@ export const createParent = async (
   data: ParentSchema
 ): Promise<CurrentState> => {
   try {
+    const user = await clerkClient.users.createUser({
+      username: data.username,
+      password: data.password,
+      firstName: data.name,
+      lastName: data.surname,
+      publicMetadata: { role: "parent" },
+    });
+
     await prisma.parent.create({
       data: {
-        id: crypto.randomUUID(), // generate a unique string ID (since id is String in model)
+        id: user.id,
         username: data.username,
         name: data.name,
         surname: data.surname,
-        email: data.email || null,
+        email: data.email,
         phone: data.phone,
         address: data.address,
-        // Optionally connect students
-        students: {
-          connect: data.studentIds?.map((id) => ({ id: String(id) })) || [],
-        },
       },
     });
 

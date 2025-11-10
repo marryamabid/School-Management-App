@@ -155,7 +155,7 @@ const SingleTeacherPage = async ({
         {/* bottom*/}
         <div className="mt-4 bg-white p-4 rounded-md h-[800px]">
           <h1>Teacher&apos;s Schedule</h1>
-          <BigCalendarContainer type="classId" id={teacher.id} />
+          <BigCalendarContainer type="teacherId" id={teacher.id} />
         </div>
       </div>
 
